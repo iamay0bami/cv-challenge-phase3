@@ -46,6 +46,8 @@ jobs:
 
       - name: Run Ansible Monitoring Setup
         run: |
+          echo "Waiting for SSH to be ready..."
+          sleep 30 
           export ANSIBLE_HOST_KEY_CHECKING=False
           ansible-playbook -i "${{ steps.get_ip.outputs.PUBLIC_IP }}," \
             -u ubuntu \
