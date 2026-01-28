@@ -4,6 +4,6 @@
   vars:
     docker_username: "iamay0bami" 
   roles:
-    - common
-    - app_stack
-    - monitoring_stack
+    - {role: common, tags: ["always"] }
+    - {role: app_stack, tags: ["app"] }
+    - {role: monitoring_stack, tags: ["monitoring"] }
