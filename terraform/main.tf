@@ -17,7 +17,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "web_sg" {
-  name        = "phase2-web-sg"
+  name        = "phase3-web-sg"
   description = "Allow SSH, Web, and Traefik Dashboard"
 
   ingress {
