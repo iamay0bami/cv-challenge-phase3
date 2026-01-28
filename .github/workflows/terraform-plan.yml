@@ -3,14 +3,14 @@ name: "Terraform Plan & Cost"
 on:
   pull_request:
     branches:
-      - infra_main  # Triggers when you propose a merge into the main infra branch
+      - infra_main
 
 jobs:
   plan-and-cost:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write # Required to post the cost comment
+      pull-requests: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -18,7 +18,7 @@ jobs:
       - name: Setup Infracost
         uses: infracost/actions/setup@v3
         with:
-          api_key: ${{ secrets.INFRACOST_API_KEY }}
+          api-key: ${{ secrets.INFRACOST_API_KEY }} 
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -37,11 +37,9 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      # Generate Infracost JSON output
       - name: Generate Infracost JSON
         run: infracost breakdown --path terraform/ --format json --out-file /tmp/infracost.json
 
-      # Post the cost comment to the PR
       - name: Post Infracost comment
         run: |
           infracost comment github \
