@@ -1,0 +1,50 @@
+name: "Terraform Plan & Cost"
+
+on:
+  pull_request:
+    branches:
+      - infra_main
+
+jobs:
+  plan-and-cost:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Infracost
+        uses: infracost/actions/setup@v3
+        with:
+          api-key: ${{ secrets.INFRACOST_API_KEY }} 
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.0
+
+      - name: Terraform Init
+        run: terraform -chdir=terraform init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Terraform Plan
+        run: terraform -chdir=terraform plan -out=tfplan
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Generate Infracost JSON
+        run: infracost breakdown --path terraform/ --format json --out-file /tmp/infracost.json
+
+      - name: Post Infracost comment
+        run: |
+          infracost comment github \
+            --path /tmp/infracost.json \
+            --repo $GITHUB_REPOSITORY \
+            --github-token ${{ github.token }} \
+            --pull-request ${{ github.event.pull_request.number }} \
+            --behavior update

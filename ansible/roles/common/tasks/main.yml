@@ -1,0 +1,70 @@
+---
+- name: Remove duplicate or old Docker list files
+  file:
+    path: "/etc/apt/sources.list.d/{{ item }}"
+    state: absent
+  loop:
+    - docker.list
+    - download_docker_com_linux_ubuntu.list
+
+- name: Create directory for Docker keyrings
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: Install prerequisite dependencies
+  apt:
+    name: [apt-transport-https, ca-certificates, curl, gnupg, lsb-release, python3-pip]
+    update_cache: yes
+    state: present
+
+- name: Download Docker GPG key
+  get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: '0644'
+
+- name: Add Docker repository with signed-by key
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+    filename: docker
+    update_cache: yes
+
+
+- name: Unhold Docker packages to allow version changes
+  ansible.builtin.shell: apt-mark unhold docker-ce docker-ce-cli
+  ignore_errors: yes
+
+- name: Install specific Docker Version (v27) and allow downgrade
+  apt:
+    name: 
+      - "docker-ce=5:27.5.1-1~ubuntu.24.04~noble"
+      - "docker-ce-cli=5:27.5.1-1~ubuntu.24.04~noble"
+      - "containerd.io"
+      - "docker-compose-plugin"
+    state: present
+    allow_downgrade: yes
+    update_cache: yes
+
+- name: Hold Docker versions to prevent auto-upgrade to v29
+  ansible.builtin.shell: apt-mark hold docker-ce docker-ce-cli
+
+
+- name: Add ubuntu user to docker group
+  user:
+    name: ubuntu
+    groups: docker
+    append: yes
+
+- name: Ensure Docker service is started
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Create shared network for Traefik
+  docker_network:
+    name: web_net
+    state: present

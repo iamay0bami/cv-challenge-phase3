@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    docker_username: "iamay0bami" 
+  roles:
+    - {role: common, tags: ["always"] }
+    - {role: app_stack, tags: ["app"] }
+    - {role: monitoring_stack, tags: ["monitoring"] }
