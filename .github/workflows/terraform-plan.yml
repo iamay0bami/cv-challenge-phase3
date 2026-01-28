@@ -43,7 +43,10 @@ jobs:
 
       # Post the cost comment to the PR
       - name: Post Infracost comment
-        uses: infracost/actions/comment@v3   
-        with:
-          path: /tmp/infracost.json
-          behavior: update
+        run: |
+          infracost comment github \
+            --path /tmp/infracost.json \
+            --repo $GITHUB_REPOSITORY \
+            --github-token ${{ github.token }} \
+            --pull-request ${{ github.event.pull_request.number }} \
+            --behavior update
