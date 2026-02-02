@@ -4,7 +4,7 @@
 **Automating the deployment of a 3-Tier Application and Monitoring Stack on AWS using Terraform, Ansible, and GitHub Actions.**
 
 ![Architecture Diagram](./docs/architecture_diagram.png)
-![alt text](image-1.png)
+![alt text](image-2.png)
 
 ## 📖 Project Overview
 This project focuses on building robust **CI/CD pipelines** to automate the lifecycle of both cloud infrastructure and application code. Moving beyond manual deployment, this phase introduces **GitOps** principles, automated cost estimation with **Infracost**, and a fully integrated **Monitoring Stack** (Prometheus, Grafana, Loki).
@@ -72,7 +72,7 @@ Our stack ensures full visibility into both infrastructure health and applicatio
 | :--- | :--- | :--- |
 | **Grafana** | `http://<IP>/grafana/` | Centralized data visualization and alerting. |
 | **Prometheus** | `http://<IP>/prometheus/` | Time-series database for scraping system and app metrics. |
-| **cAdvisor** | `http://<IP>/cadvisor/` | Real-time monitoring of container resource usage (CPU/RAM). |
+| **cAdvisor** | *Internal* | Real-time monitoring of container resource usage (CPU/RAM). |
 | **Traefik** | `http://<IP>:8080/dashboard/` | Real-time traffic routing and service health overview. |
 | **Loki/Promtail** | *Internal* | Log aggregation and indexing for all Docker containers. |
 
