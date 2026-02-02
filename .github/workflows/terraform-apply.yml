@@ -53,4 +53,4 @@ jobs:
             -u ubuntu \
             --private-key private_key.pem \
             ansible/playbook.yml \
-            --tags monitoring
+            --tags "common, monitoring"
