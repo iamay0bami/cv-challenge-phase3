@@ -64,4 +64,51 @@ Manages the build and deploy of the 3-tier web app (Frontend, Backend, DB).
 # app/frontend/Dockerfile
 COPY nginx.default.conf /etc/nginx/conf.d/default.conf
 
+## 📊 Monitoring & Observability
+Our stack ensures full visibility into both infrastructure health and application performance through a unified Traefik-managed entry point.
 
+| Service | Access Path | Purpose |
+| :--- | :--- | :--- |
+| **Grafana** | `http://<IP>/grafana/` | Centralized data visualization and alerting. |
+| **Prometheus** | `http://<IP>/prometheus/` | Time-series database for scraping system and app metrics. |
+| **cAdvisor** | `http://<IP>/cadvisor/` | Real-time monitoring of container resource usage (CPU/RAM). |
+| **Traefik** | `http://<IP>:8080/dashboard/` | Real-time traffic routing and service health overview. |
+| **Loki/Promtail** | *Internal* | Log aggregation and indexing for all Docker containers. |
+
+> **Note:** Prometheus and cAdvisor utilize Traefiks `StripPrefix` middleware to ensure correct internal path routing while maintaining clean external URLs.
+
+---
+
+## 🚀 How to Run & Execute
+
+### Phase 1: Infrastructure Deployment
+1.  **Work on Features:** Push changes to the `infra_features` branch to trigger `terraform validate`.
+2.  **Verify Costs:** Open a Pull Request from `infra_features` to `infra_main`. Check the **Infracost** comment for estimated monthly cloud spend.
+3.  **Provision:** Merge the PR to `infra_main`. This triggers `terraform apply` and the **Ansible** monitoring setup automatically.
+
+### Phase 2: Application Deployment
+1.  **Continuous Integration:** Push application code to the `integration` branch. The CI pipeline will:
+    * Build and push Docker images to Docker Hub.
+    * Automatically update `docker-compose.yml` with the unique Git SHA.
+2.  **Continuous Deployment:** Merge `integration` into the `deployment` branch. The CD pipeline will SSH into your AWS instance and deploy the updated application stack.
+
+---
+
+## ✅ Acceptance Criteria Checklist
+- [x] **Infrastructure Pipeline:** Automated Validation, Planning (with Infracost), and Apply.
+- [x] **Ansible Integration:** Playbook triggered post-apply to set up the monitoring stack.
+- [x] **Application CI:** Images built, tagged with Git SHA, and pushed to Docker Hub.
+- [x] **Application CD:** Automatic deployment of the updated stack to AWS EC2.
+- [x] **Health Check:** All services (Frontend, Backend, Monitoring) accessible via Port 80 with appropriate PathPrefixes.
+- [x] **Documentation:** Detailed README and Architectural Diagram provided.
+
+---
+
+## 📝 Submission Deliverables
+- [ ] **GitHub Repository Link:** [Your Repo Link Here]
+- [ ] **Blog Post:** [Your Blog Link Here] (Includes architectural diagram and process documentation).
+- [ ] **Screenshots:** Successfully executed pipelines (Terraform, Ansible, CI/CD).
+
+---
+
+**Built by AYOBAMI AGBOOLA** *Project completed as part of the CV Challenge - Week 3*
