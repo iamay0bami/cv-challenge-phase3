@@ -77,10 +77,6 @@ services:
     restart: always
     environment:
       - VITE_API_URL=http://${DOMAIN}/api
-    volumes:
-      # We need to ensure this file exists on the server or built into the image
-      # For now, let's comment it out unless you copied it to the app folder
-      # - ./nginx.default.conf:/etc/nginx/conf.d/default.conf:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
