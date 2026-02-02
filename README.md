@@ -63,6 +63,7 @@ Manages the build and deploy of the 3-tier web app (Frontend, Backend, DB).
 ```dockerfile
 # app/frontend/Dockerfile
 COPY nginx.default.conf /etc/nginx/conf.d/default.conf
+```
 
 ## 📊 Monitoring & Observability
 Our stack ensures full visibility into both infrastructure health and application performance through a unified Traefik-managed entry point.
