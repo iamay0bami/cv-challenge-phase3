@@ -4,7 +4,7 @@
 **Automating the deployment of a 3-Tier Application and Monitoring Stack on AWS using Terraform, Ansible, and GitHub Actions.**
 
 ![Architecture Diagram](./docs/architecture_diagram.png)
-![alt text](image-3.png)
+![alt text](image.png)
 
 ## 📖 Project Overview
 This project focuses on building robust **CI/CD pipelines** to automate the lifecycle of both cloud infrastructure and application code. Moving beyond manual deployment, this phase introduces **GitOps** principles, automated cost estimation with **Infracost**, and a fully integrated **Monitoring Stack** (Prometheus, Grafana, Loki).

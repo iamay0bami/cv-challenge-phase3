@@ -14,6 +14,13 @@ resource "time_sleep" "wait_30_seconds" {
 
 provider "aws" {
   region = var.aws_region
+
+  default_tags {
+    tags = {
+      Environment = "Dev"
+      Service     = "CV-Challenge"
+    }
+  }
 }
 
 resource "aws_security_group" "web_sg" {
@@ -78,7 +85,9 @@ resource "aws_instance" "app_server" {
   }
 
   tags = {
-    Name = "Phase2-Server"
+    Name        = "Phase3-Server"
+    Environment = "Dev"
+    Project     = "CV-Challenge"
   }
 }
 
