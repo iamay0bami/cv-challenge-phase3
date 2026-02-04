@@ -78,7 +78,7 @@ resource "aws_instance" "app_server" {
   }
 
   tags = {
-    Name = "Phase2-Server"
+    Name = "Phase3-Server"
   }
 }
 
