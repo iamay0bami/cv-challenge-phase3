@@ -78,7 +78,9 @@ resource "aws_instance" "app_server" {
   }
 
   tags = {
-    Name = "Phase3-Server"
+    Name        = "Phase3-Server"
+    Environment = "Dev"
+    Project     = "CV-Challenge"
   }
 }
 
