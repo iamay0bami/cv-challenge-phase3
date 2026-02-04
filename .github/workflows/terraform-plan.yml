@@ -37,8 +37,14 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+      - name: Export Terraform Plan JSON
+        run: terraform -chdir=terraform show -json tfplan > /tmp/tfplan.json
+
       - name: Generate Infracost JSON
-        run: infracost breakdown --path terraform/ --format json --out-file /tmp/infracost.json
+        run: |
+          infracost diff --path /tmp/tfplan.json \
+                          --format json \
+                          --out-file /tmp/infracost.json
 
       - name: Post Infracost comment
         run: |
