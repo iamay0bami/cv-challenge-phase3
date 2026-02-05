@@ -108,7 +108,7 @@ Our stack ensures full visibility into both infrastructure health and applicatio
 ## 📝 Submission Deliverables
 - [ ] **GitHub Repository Link:** [Your Repo Link Here]
 - [ ] **Blog Post:** [Your Blog Link Here] (Includes architectural diagram and process documentation).
-- [ ] **Screenshots:** Successfully executed pipelines (Terraform, Ansible, CI/CD).
+- [ ] **Screenshots:** Successfully executed pipelines (Terraform, Ansible, CI/CD). 2
 
 ---
 
