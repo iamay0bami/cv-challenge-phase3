@@ -95,21 +95,4 @@ Our stack ensures full visibility into both infrastructure health and applicatio
 
 ---
 
-## ✅ Acceptance Criteria Checklist
-- [x] **Infrastructure Pipeline:** Automated Validation, Planning (with Infracost), and Apply.
-- [x] **Ansible Integration:** Playbook triggered post-apply to set up the monitoring stack.
-- [x] **Application CI:** Images built, tagged with Git SHA, and pushed to Docker Hub.
-- [x] **Application CD:** Automatic deployment of the updated stack to AWS EC2.
-- [x] **Health Check:** All services (Frontend, Backend, Monitoring) accessible via Port 80 with appropriate PathPrefixes.
-- [x] **Documentation:** Detailed README and Architectural Diagram provided.
-
----
-
-## 📝 Submission Deliverables
-- [ ] **GitHub Repository Link:** [Your Repo Link Here]
-- [ ] **Blog Post:** [Your Blog Link Here] (Includes architectural diagram and process documentation).
-- [ ] **Screenshots:** Successfully executed pipelines (Terraform, Ansible, CI/CD). 2
-
----
-
 **Built by AYOBAMI AGBOOLA** *Project completed as part of the CV Challenge - Week 3*
