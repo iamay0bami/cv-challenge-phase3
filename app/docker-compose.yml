@@ -33,7 +33,7 @@ services:
 
   cv-backend:
     # CI Pipeline will replace this tag
-    image: iamay0bami/backend:3ce17b048594e26f564bb8b5ace4a03af6a7a703
+    image: iamay0bami/backend:caa2abbcd41e8f80c5c1813d38cbeda3826292d3
     container_name: cv-backend
     restart: always
     environment:
@@ -72,7 +72,7 @@ services:
 
   cv-frontend:
     # CI Pipeline will replace this tag
-    image: iamay0bami/frontend:3ce17b048594e26f564bb8b5ace4a03af6a7a703
+    image: iamay0bami/frontend:caa2abbcd41e8f80c5c1813d38cbeda3826292d3
     container_name: cv-frontend
     restart: always
     environment:
